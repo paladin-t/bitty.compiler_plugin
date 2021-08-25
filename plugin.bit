@@ -1,5 +1,5 @@
 package:application/vnd.bitty-archive;
-data:text/lua;count=1331;path=main.lua;
+data:text/lua;count=1865;path=main.lua;
 --[[
 Plugin for the Bitty Engine
 
@@ -8,23 +8,27 @@ Copyright (C) 2020 - 2021 Tony Wang, all rights reserved
 Homepage: https://paladin-t.github.io/bitty/
 ]]
 
+-- Which assets are supposed to be injected from this plugin to target project.
 local assets = {
 	'bf/compiler.lua',
 	'bf/README.txt'
 }
 
+-- Tips and example code.
 local tips = 'Usage:\n  require \'bf/compiler\'\n  f = compile(\'source.bf\')\n  f()'
 local code = 'require \'bf/compiler\'\nf = compile(\'source.bf\')\nf()\n'
 
+-- Plugin entry, called to determine the usage of this plugin.
 function usage()
-	return { 'compiler' }
+	return { 'compiler' } -- This plugin is a compiler.
 end
 
+-- Plugin entry, called to determine the schema of this plugin.
 function schema()
 	return {
 		-- Common.
-		name = 'BF',
-		extension = 'bf',
+		name = 'BF',      -- Asset name registered for this plugin.
+		extension = 'bf', -- Asset extension registered for this plugin.
 
 		-- List of string.
 		keywords = { },
@@ -45,6 +49,7 @@ function schema()
 	}
 end
 
+-- Plugin entry, called to install necessary assets to your target project.
 function compiler()
 	print('Install BF compiler to the current project.')
 
@@ -53,10 +58,10 @@ function compiler()
 			local install = function (name)
 				local data = Project.main:read(name)
 				data:poke(1)
-				Project.editing:write(name, data)
+				Project.editing:write(name, data) -- Write into the target project.
 			end
 
-			for _, asset in ipairs(assets) do
+			for _, asset in ipairs(assets) do -- Install all necessary assets.
 				install(asset)
 			end
 
@@ -64,12 +69,12 @@ function compiler()
 
 			msgbox(tips)
 				:thus(function ()
-					Platform.setClipboardText(code)
+					Platform.setClipboardText(code) -- Put example code to clipboard.
 				end)
 		end)
 end
 
-data:text/lua;count=1568;path=bf/compiler.lua;
+data:text/lua;count=1632;path=bf/compiler.lua;
 --[[
 BF compiler for the Bitty Engine
 
@@ -114,12 +119,12 @@ function compile(asset)
 			if comment then
 				ln = ln:sub(1, comment - 1) -- Remove comment.
 			end
-			dst = dst .. ln -- Concat lines.
+			dst = dst .. ln                 -- Concat lines.
 		end
 	end
-	local full = interpreter .. 'interpret(\'' .. dst .. '\')' -- Link the source code into the interpreter.
+	local full = interpreter .. 'interpret(\'' .. dst .. '\')' -- Link the source code with the interpreter together.
 
-	return load(full)
+	return load(full) -- Return loaded and parsed Lua chunk.
 end
 
 data:text/txt;count=96;path=bf/README.txt;
@@ -130,7 +135,7 @@ Usage:
   f = compile('source.bf')
   f()
 
-data:text/json;count=161;path=info.json;
+data:text/json;count=211;path=info.json;
 {
   "id": 0,
   "title": "BF Compiler",
@@ -138,5 +143,5 @@ data:text/json;count=161;path=info.json;
   "author": "Tony",
   "version": "1.0",
   "genre": "COMPILER",
-  "url": ""
+  "url": "https://github.com/paladin-t/bitty.compiler_plugin"
 }

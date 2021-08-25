@@ -40,12 +40,12 @@ function compile(asset)
 		if #ln > 0 then
 			local comment = ln:find('#')
 			if comment then
-				ln = ln:sub(1, comment - 1)
+				ln = ln:sub(1, comment - 1) -- Remove comment.
 			end
-			dst = dst .. ln
+			dst = dst .. ln                 -- Concat lines.
 		end
 	end
-	local full = interpreter .. 'interpret(\'' .. dst .. '\')'
+	local full = interpreter .. 'interpret(\'' .. dst .. '\')' -- Link the source code with the interpreter together.
 
-	return load(full)
+	return load(full) -- Return loaded and parsed Lua chunk.
 end

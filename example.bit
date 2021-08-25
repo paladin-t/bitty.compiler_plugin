@@ -1,11 +1,5 @@
 package:application/vnd.bitty-archive;
-data:text/lua;count=57;path=main.lua;
-require 'bf/compiler'
-
-f = compile('hello world.bf')
-f()
-
-data:text/lua;count=1486;path=bf/compiler.lua;
+data:text/lua;count=1632;path=bf/compiler.lua;
 --[[
 BF compiler for the Bitty Engine
 
@@ -48,14 +42,14 @@ function compile(asset)
 		if #ln > 0 then
 			local comment = ln:find('#')
 			if comment then
-				ln = ln:sub(1, comment - 1)
+				ln = ln:sub(1, comment - 1) -- Remove comment.
 			end
-			dst = dst .. ln
+			dst = dst .. ln                 -- Concat lines.
 		end
 	end
-	local full = interpreter .. 'interpret(\'' .. dst .. '\')'
+	local full = interpreter .. 'interpret(\'' .. dst .. '\')' -- Link the source code with the interpreter together.
 
-	return load(full)
+	return load(full) -- Return loaded and parsed Lua chunk.
 end
 
 data:text/txt;count=96;path=bf/README.txt;
@@ -66,18 +60,24 @@ Usage:
   f = compile('source.bf')
   f()
 
-data:binary/octet;count=124;path=hello world.bf;
-++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.++ #fasdf
-+.------.--------.>+.>.#adsg
-data:text/json;count=127;path=info.json;
+data:binary/octet;count=231;path=hello world.bf;
+++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.++ # The BF compiler supports new lines,
++.------.--------.>+.>.                                                                  # and comments.
+data:text/json;count=206;path=info.json;
 {
   "id": 0,
-  "title": "BF",
-  "description": "",
+  "title": "BF Example",
+  "description": "A BF example project.",
   "author": "Tony",
   "version": "1.0",
   "genre": "TUTORIAL",
-  "url": ""
+  "url": "https://github.com/paladin-t/bitty.compiler_plugin"
 }
 data:binary/octet;count=6;path=input.bf;
 ,.,.,.
+data:text/lua;count=183;path=main.lua;
+require 'bf/compiler'               -- Require the compiler.
+
+local f = compile('hello world.bf') -- Compile something.
+f()                                 -- Run the compiled chunk.
+

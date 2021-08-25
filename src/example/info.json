@@ -1,9 +1,9 @@
 {
   "id": 0,
-  "title": "BF Compiler",
-  "description": "Compile BF source to Lua.",
+  "title": "BF Example",
+  "description": "A BF example project.",
   "author": "Tony",
   "version": "1.0",
-  "genre": "COMPILER",
+  "genre": "TUTORIAL",
   "url": "https://github.com/paladin-t/bitty.compiler_plugin"
 }

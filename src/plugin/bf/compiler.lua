@@ -42,10 +42,10 @@ function compile(asset)
 			if comment then
 				ln = ln:sub(1, comment - 1) -- Remove comment.
 			end
-			dst = dst .. ln -- Concat lines.
+			dst = dst .. ln                 -- Concat lines.
 		end
 	end
-	local full = interpreter .. 'interpret(\'' .. dst .. '\')' -- Link the source code into the interpreter.
+	local full = interpreter .. 'interpret(\'' .. dst .. '\')' -- Link the source code with the interpreter together.
 
-	return load(full)
+	return load(full) -- Return loaded and parsed Lua chunk.
 end
