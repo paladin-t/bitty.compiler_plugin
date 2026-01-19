@@ -1,7 +1,7 @@
 --[[
 BF compiler for the Bitty Engine
 
-Copyright (C) 2020 - 2021 Tony Wang, all rights reserved
+Copyright (C) 2021 - 2026 Tony Wang, all rights reserved
 
 Homepage: https://paladin-t.github.io/bitty/
 ]]
@@ -37,12 +37,13 @@ function compile(asset)
 	local src = bytes:readString()
 	local dst = ''
 	for ln in src:gmatch('([^\n]*)\n?') do
-		if #ln > 0 then
-			local comment = ln:find('#')
+		local ln_ = ln
+		if #ln_ > 0 then
+			local comment = ln_:find('#')
 			if comment then
-				ln = ln:sub(1, comment - 1) -- Remove comment.
+				ln_ = ln_:sub(1, comment - 1) -- Remove comment.
 			end
-			dst = dst .. ln                 -- Concat lines.
+			dst = dst .. ln_                  -- Concat lines.
 		end
 	end
 	local full = interpreter .. 'interpret(\'' .. dst .. '\')' -- Link the source code with the interpreter together.
